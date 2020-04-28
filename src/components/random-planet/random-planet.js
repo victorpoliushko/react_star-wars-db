@@ -14,8 +14,7 @@ export default class PlanetDetails extends Component {
     error: false,
   };
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.updatePlanet();
   }
 

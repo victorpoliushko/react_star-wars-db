@@ -1,17 +1,37 @@
-import React, { Component } from 'react';
-import Header from '../header';
-import RandomPlanet from '../random-planet';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import React, { Component } from "react";
+import Header from "../header";
+import RandomPlanet from "../random-planet";
+import ItemList from "../item-list";
+import PersonDetails from "../person-details";
 
-import './app.css';
+import "./app.css";
 
 export default class App extends Component {
+  state = {
+    showRandomPlanet: true,
+  };
+
+  onTogglePlanet = () => {
+    this.setState((state) => {
+      return {
+        showRandomPlanet: !state.showRandomPlanet,
+      };
+    });
+  };
+
   render() {
-    return(
+    const randomPlanet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
+
+    return (
       <div className="app">
         <Header />
-        <RandomPlanet />
+        {randomPlanet}
+        <button
+          className="toggle-planet btn btn-warning btn-lg"
+          onClick={this.onTogglePlanet}
+        >
+          <span>Toggle random planet</span>
+        </button>
         <div className="row mb2">
           <div className="col-md-6">
             <ItemList />
@@ -22,5 +42,5 @@ export default class App extends Component {
         </div>
       </div>
     );
-  };
-};
+  }
+}
