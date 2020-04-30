@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SwapiService from "../../services/swapi-service";
 
 import "./person-details.css";
+import ErrorButton from "../error-button";
 
 export default class PersonDetails extends Component {
   swapiService = new SwapiService();
@@ -9,6 +10,12 @@ export default class PersonDetails extends Component {
   state = {
     person: null,
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.personId !== prevProps.personId) {
+      this.updatePerson();
+    }
+  }
 
   updatePerson() {
     const { personId } = this.props;
@@ -21,12 +28,6 @@ export default class PersonDetails extends Component {
         person,
       });
     });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
-      this.updatePerson();
-    }
   }
 
   render() {
@@ -58,6 +59,7 @@ export default class PersonDetails extends Component {
               <span>{eyeColor}</span>
             </li>
           </ul>
+          <ErrorButton />
         </div>
       </div>
     );
