@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 import Header from "../header";
 import RandomPlanet from "../random-planet";
-import ErrorButton from "../error-button";
-import ErrorIndicator from "../error-indicator";
-import PeoplePage from "../people-page";
-import ItemList from "../item-list";
-import PersonDetails from "../item-details";
-
-import "./app.css";
 import SwapiService from "../../services/swapi-service";
 import ErrorBoundry from "../error-boundry";
 import Row from "../row";
-import ItemDetails from "../item-details";
+import ItemDetails, { Record } from "../item-details";
+
+import "./app.css";
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -49,14 +44,17 @@ export default class App extends Component {
         itemId={11}
         getData={this.swapiService.getPerson}
         getImageUrl={getPersonImage}
-      />
+      >
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye color" />
+      </ItemDetails>
     );
     const starshipDetails = (
       <ItemDetails
         itemId={5}
         getData={this.swapiService.getStarship}
         getImageUrl={getStarshipImage}
-      />
+      ></ItemDetails>
     );
 
     return (
