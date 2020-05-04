@@ -7,6 +7,7 @@ import Row from "../row";
 import ItemDetails, { Record } from "../item-details";
 
 import "./app.css";
+import ItemList from "../item-list";
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -33,6 +34,8 @@ export default class App extends Component {
     const {
       getPerson,
       getStarship,
+      getAllPeople,
+      getAllPlanets,
       getPersonImage,
       getStarshipImage,
     } = this.swapiService;
@@ -54,25 +57,24 @@ export default class App extends Component {
         itemId={5}
         getData={this.swapiService.getStarship}
         getImageUrl={getStarshipImage}
-      ></ItemDetails>
+      >
+        <Record field="model" label="Model" />
+        <Record field="length" label="Length" />
+      </ItemDetails>
     );
 
     return (
       <ErrorBoundry>
         <div className="app">
           <Header />
-          <Row left={personDetails} right={starshipDetails} />
-          {/* {randomPlanet}
-          <div className="row mb2 button-row">
-            <button
-              className="toggle-planet btn btn-warning btn-lg"
-              onClick={this.onTogglePlanet}
-            >
-              <span>Toggle random planet</span>
-            </button>
-            <ErrorButton />
-          </div>
-          <PeoplePage /> */}
+          {/* <Row left={personDetails} right={starshipDetails} /> */}
+          <ItemList getData={getAllPeople} onItemSelected={() => {}}>
+            {({ name }) => <span>{name}</span>}
+          </ItemList>
+
+          <ItemList getData={getAllPlanets} onItemSelected={() => {}}>
+            {({ name }) => <span>{name}</span>}
+          </ItemList>
         </div>
       </ErrorBoundry>
     );
